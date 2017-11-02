@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+       xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.dangdang.com/schema/ddframe/reg
+        http://www.dangdang.com/schema/ddframe/reg/reg.xsd
+        http://www.dangdang.com/schema/ddframe/job
+        http://www.dangdang.com/schema/ddframe/job/job.xsd">
+
+
+    <reg:zookeeper id="regCenter" server-lists="${elasticjob.zk.address}" namespace="${elasticjob.zk.namespace}"
+                   base-sleep-time-milliseconds="30000" max-sleep-time-milliseconds="100000" max-retries="3"/>
+
+    <job:dataflow id="distributeTaskJob" class="com.jd.iduad.taskcenter.worker.DistributeTaskJob" registry-center-ref="regCenter"
+    cron="0/20 * * * * ?" sharding-total-count="1" overwrite="true" /> <!--  sharding-item-parameters="0=A,1=B,2=C" -->
+
+
+</beans>
