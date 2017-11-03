@@ -15,7 +15,6 @@ import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,10 +22,6 @@ import java.util.*;
 
 @Configuration
 public class ShiroConfig {
-
-	private String host = "localhost";
-
-	private Integer port = 6379;
 
 /*	@Bean
 	public EhCacheManager getEhCacheManager() {
@@ -36,7 +31,7 @@ public class ShiroConfig {
 	}*/
 
 	@Bean
-	public RedisManager getRedisManager(AppConfig config) {
+	public RedisManager getRedisManager(RedisConfig config) {
 		RedisManager redisManager = new RedisManager();
 		redisManager.setHost(config.getRedis().get("host"));
 		redisManager.setPort(Integer.valueOf(config.getRedis().get("port")));
@@ -111,6 +106,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/blog", "anon");
 		filterChainDefinitionMap.put("/blog/open/**", "anon");
+		filterChainDefinitionMap.put("swagger-ui.html", "anon");
+		filterChainDefinitionMap.put("/swagger-ui.html/**", "anon");
 		filterChainDefinitionMap.put("/**", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

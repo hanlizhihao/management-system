@@ -3,6 +3,8 @@ bootdo:
 logging:
   level:
     com.bootdo: debug
+app:
+ swaggerEnabled: true
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

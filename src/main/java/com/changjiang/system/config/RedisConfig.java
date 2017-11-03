@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 @ConfigurationProperties(prefix = "spring")
 @Data
-public class AppConfig {
+public class RedisConfig {
 
     private Map<String,String> redis = new HashMap<>();
 
