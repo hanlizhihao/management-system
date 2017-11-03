@@ -35,11 +35,11 @@
         ,duty.state as Duty5
     </sql>
 
-    <select id="getDutyRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getDutyRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from duty
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDuty" parameterType="com.changjiang.common.Assist"  resultMap="result_Duty_Map">
+    <select id="selectDuty" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Duty_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -111,7 +111,7 @@ com.changjiang.entity.UserInformation" column="id" select="getUserInfo">
         where id = #{id}
     </delete>
 
-    <delete id="deleteDuty" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteDuty" parameterType="com.changjiang.common.utils.Assist">
         delete from duty
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

@@ -47,11 +47,11 @@
         ,official_user_information.state as OfficialUserInformation11
     </sql>
 
-    <select id="getOfficialUserInformationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOfficialUserInformationRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from official_user_information
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOfficialUserInformation" parameterType="com.changjiang.common.Assist"  resultMap="result_OfficialUserInformation_Map">
+    <select id="selectOfficialUserInformation" parameterType="com.changjiang.common.utils.Assist" resultMap="result_OfficialUserInformation_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -115,7 +115,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOfficialUserInformation" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOfficialUserInformation" parameterType="com.changjiang.common.utils.Assist">
         delete from official_user_information
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

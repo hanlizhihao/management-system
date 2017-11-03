@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.dao.OrderProducteDao;
 import com.changjiang.entity.OrderProducte;
 import org.springframework.beans.factory.annotation.Autowired;

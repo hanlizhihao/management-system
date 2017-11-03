@@ -39,11 +39,11 @@
         ,store_evaluation.store_number as StoreEvaluation7
     </sql>
 
-    <select id="getStoreEvaluationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getStoreEvaluationRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from store_evaluation
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectStoreEvaluation" parameterType="com.changjiang.common.Assist"  resultMap="result_StoreEvaluation_Map">
+    <select id="selectStoreEvaluation" parameterType="com.changjiang.common.utils.Assist" resultMap="result_StoreEvaluation_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -99,7 +99,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteStoreEvaluation" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteStoreEvaluation" parameterType="com.changjiang.common.utils.Assist">
         delete from store_evaluation
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

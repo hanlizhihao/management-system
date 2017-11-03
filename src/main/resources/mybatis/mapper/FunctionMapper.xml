@@ -39,11 +39,11 @@
         ,function.urls as Function7
     </sql>
 
-    <select id="getFunctionRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getFunctionRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from function
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectFunction" parameterType="com.changjiang.common.Assist"  resultMap="result_Function_Map">
+    <select id="selectFunction" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Function_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -99,7 +99,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteFunction" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteFunction" parameterType="com.changjiang.common.utils.Assist">
         delete from function
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

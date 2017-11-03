@@ -35,11 +35,11 @@
         ,order_type.state as OrderType5
     </sql>
 
-    <select id="getOrderTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOrderTypeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from order_type
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOrderType" parameterType="com.changjiang.common.Assist"  resultMap="result_OrderType_Map">
+    <select id="selectOrderType" parameterType="com.changjiang.common.utils.Assist" resultMap="result_OrderType_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -113,7 +113,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOrderType" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOrderType" parameterType="com.changjiang.common.utils.Assist">
         delete from order_type
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

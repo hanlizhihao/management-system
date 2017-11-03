@@ -1,9 +1,12 @@
 package com.changjiang.common.utils;
 
+import com.changjiang.system.config.RedisConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -19,13 +22,18 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Slf4j
 public class MybatisRedisCache implements Cache {
 
+    @Autowired
+    private RedisConfig redisConfig;
+
     private Jedis redisClient;
+
     /** The ReadWriteLock. */
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
     private String id;
     //用于读取配置文件
     public MybatisRedisCache(final String id) throws IOException {
-        JedisPool pool = new JedisPool(new JedisPoolConfig(),"192.168.1.102");
+        JedisPool pool = new JedisPool(new JedisPoolConfig(),redisConfig.getRedis().get("host"));
         redisClient = pool.getResource();
         if (id == null) {
             throw new IllegalArgumentException("Cache instances require an ID");
@@ -65,6 +73,7 @@ public class MybatisRedisCache implements Cache {
     public void clear() {
         redisClient.flushDB();
     }
+
     @Override
     public ReadWriteLock getReadWriteLock() {
         return readWriteLock;

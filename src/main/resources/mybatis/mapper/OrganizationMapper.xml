@@ -31,11 +31,11 @@
         ,organization.current_level as Organization3
     </sql>
 
-    <select id="getOrganizationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOrganizationRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from organization
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOrganization" parameterType="com.changjiang.common.Assist"  resultMap="result_Organization_Map">
+    <select id="selectOrganization" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Organization_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -93,7 +93,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOrganization" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOrganization" parameterType="com.changjiang.common.utils.Assist">
         delete from organization
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

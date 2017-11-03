@@ -31,11 +31,11 @@
         ,role_power.function_id as RolePower3
     </sql>
 
-    <select id="getRolePowerRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getRolePowerRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from role_power
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectRolePower" parameterType="com.changjiang.common.Assist"  resultMap="result_RolePower_Map">
+    <select id="selectRolePower" parameterType="com.changjiang.common.utils.Assist" resultMap="result_RolePower_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -83,7 +83,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteRolePower" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteRolePower" parameterType="com.changjiang.common.utils.Assist">
         delete from role_power
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

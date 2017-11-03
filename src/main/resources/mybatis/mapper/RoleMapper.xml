@@ -35,11 +35,11 @@
         ,role.store_id as Role5
     </sql>
 
-    <select id="getRoleRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getRoleRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from role
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectRole" parameterType="com.changjiang.common.Assist"  resultMap="result_Role_Map">
+    <select id="selectRole" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Role_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -91,7 +91,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteRole" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteRole" parameterType="com.changjiang.common.utils.Assist">
         delete from role
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

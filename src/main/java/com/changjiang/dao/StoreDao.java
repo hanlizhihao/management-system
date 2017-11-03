@@ -1,6 +1,6 @@
 package com.changjiang.dao;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.Store;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;

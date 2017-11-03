@@ -53,11 +53,11 @@
         ,vip.score as Vip14
     </sql>
 
-    <select id="getVipRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getVipRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from vip
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectVip" parameterType="com.changjiang.common.Assist"  resultMap="result_Vip_Map">
+    <select id="selectVip" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Vip_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -133,7 +133,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteVip" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteVip" parameterType="com.changjiang.common.utils.Assist">
         delete from vip
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

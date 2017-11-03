@@ -31,11 +31,11 @@
         ,producte_type.store_number as ProducteType3
     </sql>
 
-    <select id="getProducteTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getProducteTypeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from producte_type
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectProducteType" parameterType="com.changjiang.common.Assist"  resultMap="result_ProducteType_Map">
+    <select id="selectProducteType" parameterType="com.changjiang.common.utils.Assist" resultMap="result_ProducteType_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -150,7 +150,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteProducteType" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteProducteType" parameterType="com.changjiang.common.utils.Assist">
         delete from producte_type
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

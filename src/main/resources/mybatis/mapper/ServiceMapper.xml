@@ -37,11 +37,11 @@
         ,service.service_type as Service6
     </sql>
 
-    <select id="getServiceRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getServiceRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from service
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectService" parameterType="com.changjiang.common.Assist"  resultMap="result_Service_Map">
+    <select id="selectService" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Service_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -95,7 +95,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteService" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteService" parameterType="com.changjiang.common.utils.Assist">
         delete from service
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

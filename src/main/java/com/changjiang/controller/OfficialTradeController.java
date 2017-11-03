@@ -1,6 +1,6 @@
 package com.changjiang.controller;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.OfficialTrade;
 import com.changjiang.service.OfficialTradeService;
 import org.springframework.beans.factory.annotation.Autowired;

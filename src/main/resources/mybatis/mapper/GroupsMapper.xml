@@ -29,11 +29,11 @@
         ,groups.db_desc as Groups2
     </sql>
 
-    <select id="getGroupsRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getGroupsRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from groups
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectGroups" parameterType="com.changjiang.common.Assist"  resultMap="result_Groups_Map">
+    <select id="selectGroups" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Groups_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -79,7 +79,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteGroups" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteGroups" parameterType="com.changjiang.common.utils.Assist">
         delete from groups
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

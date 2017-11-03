@@ -39,11 +39,11 @@
         ,user_evaluation.user_id as UserEvaluation7
     </sql>
 
-    <select id="getUserEvaluationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getUserEvaluationRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from user_evaluation
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUserEvaluation" parameterType="com.changjiang.common.Assist"  resultMap="result_UserEvaluation_Map">
+    <select id="selectUserEvaluation" parameterType="com.changjiang.common.utils.Assist" resultMap="result_UserEvaluation_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -99,7 +99,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteUserEvaluation" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteUserEvaluation" parameterType="com.changjiang.common.utils.Assist">
         delete from user_evaluation
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.dao.WorkStationDao;
 import com.changjiang.entity.WorkStation;
 import org.springframework.beans.factory.annotation.Autowired;

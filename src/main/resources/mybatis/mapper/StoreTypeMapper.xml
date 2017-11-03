@@ -31,11 +31,11 @@
         ,store_type.db_explain as StoreType3
     </sql>
 
-    <select id="getStoreTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getStoreTypeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from store_type
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectStoreType" parameterType="com.changjiang.common.Assist"  resultMap="result_StoreType_Map">
+    <select id="selectStoreType" parameterType="com.changjiang.common.utils.Assist" resultMap="result_StoreType_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -112,7 +112,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteStoreType" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteStoreType" parameterType="com.changjiang.common.utils.Assist">
         delete from store_type
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

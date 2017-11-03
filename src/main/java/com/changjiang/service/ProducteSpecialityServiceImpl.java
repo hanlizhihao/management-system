@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.dao.ProducteSpecialityDao;
 import com.changjiang.entity.ProducteSpeciality;
 

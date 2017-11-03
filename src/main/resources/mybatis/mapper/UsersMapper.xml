@@ -37,12 +37,12 @@
         ,users.enabled as Users6
     </sql>
 
-    <select id="getUsersRowCount" parameterType="com.changjiang.common.Assist" 
+    <select id="getUsersRowCount" parameterType="com.changjiang.common.utils.Assist"
     resultType="java.lang.Long">
         select count(id) from users
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUsers" parameterType="com.changjiang.common.Assist"  
+    <select id="selectUsers" parameterType="com.changjiang.common.utils.Assist"
     resultMap="result_Users_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
@@ -100,7 +100,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteUsers" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteUsers" parameterType="com.changjiang.common.utils.Assist">
         delete from users
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

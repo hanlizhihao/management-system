@@ -35,11 +35,11 @@
         ,duty_record.official_userInformation as DutyRecord5
     </sql>
 
-    <select id="getDutyRecordRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getDutyRecordRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from duty_record
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDutyRecord" parameterType="com.changjiang.common.Assist"  resultMap="result_DutyRecord_Map">
+    <select id="selectDutyRecord" parameterType="com.changjiang.common.utils.Assist" resultMap="result_DutyRecord_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -91,7 +91,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteDutyRecord" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteDutyRecord" parameterType="com.changjiang.common.utils.Assist">
         delete from duty_record
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

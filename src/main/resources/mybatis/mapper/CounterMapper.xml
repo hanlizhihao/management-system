@@ -37,11 +37,11 @@
         ,counter.area as Counter6
     </sql>
 
-    <select id="getCounterRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getCounterRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from counter
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCounter" parameterType="com.changjiang.common.Assist"  resultMap="result_Counter_Map">
+    <select id="selectCounter" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Counter_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -120,7 +120,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteCounter" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteCounter" parameterType="com.changjiang.common.utils.Assist">
         delete from counter
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

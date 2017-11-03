@@ -47,11 +47,11 @@
         ,order_producte.reminder_number as OrderProducte11
     </sql>
 
-    <select id="getOrderProducteRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOrderProducteRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from order_producte
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOrderProducte" parameterType="com.changjiang.common.Assist"  resultMap="result_OrderProducte_Map">
+    <select id="selectOrderProducte" parameterType="com.changjiang.common.utils.Assist" resultMap="result_OrderProducte_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -115,7 +115,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOrderProducte" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOrderProducte" parameterType="com.changjiang.common.utils.Assist">
         delete from order_producte
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

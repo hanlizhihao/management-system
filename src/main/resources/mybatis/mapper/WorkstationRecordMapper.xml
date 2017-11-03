@@ -47,11 +47,11 @@
         ,workstation_record.number as WorkstationRecord11
     </sql>
 
-    <select id="getWorkstationRecordRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getWorkstationRecordRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from workstation_record
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectWorkstationRecord" parameterType="com.changjiang.common.Assist"  resultMap="result_WorkstationRecord_Map">
+    <select id="selectWorkstationRecord" parameterType="com.changjiang.common.utils.Assist" resultMap="result_WorkstationRecord_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -115,7 +115,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteWorkstationRecord" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteWorkstationRecord" parameterType="com.changjiang.common.utils.Assist">
         delete from workstation_record
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

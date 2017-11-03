@@ -35,11 +35,11 @@
         ,department.department_grade as Department5
     </sql>
 
-    <select id="getDepartmentRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getDepartmentRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from department
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDepartment" parameterType="com.changjiang.common.Assist"  resultMap="result_Department_Map">
+    <select id="selectDepartment" parameterType="com.changjiang.common.utils.Assist" resultMap="result_Department_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -109,7 +109,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteDepartment" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteDepartment" parameterType="com.changjiang.common.utils.Assist">
         delete from department
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

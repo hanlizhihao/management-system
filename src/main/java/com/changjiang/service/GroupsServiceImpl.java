@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.dao.GroupsDao;
 import com.changjiang.entity.Groups;
 import org.springframework.beans.factory.annotation.Autowired;

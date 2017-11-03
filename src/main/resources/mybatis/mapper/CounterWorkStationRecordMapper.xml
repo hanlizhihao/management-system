@@ -29,11 +29,11 @@
         ,counter_work_station_record.work_station_id as CounterWorkStationRecord2
     </sql>
 
-    <select id="getCounterWorkStationRecordRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getCounterWorkStationRecordRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from counter_work_station_record
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCounterWorkStationRecord" parameterType="com.changjiang.common.Assist"  resultMap="result_CounterWorkStationRecord_Map">
+    <select id="selectCounterWorkStationRecord" parameterType="com.changjiang.common.utils.Assist" resultMap="result_CounterWorkStationRecord_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -79,7 +79,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteCounterWorkStationRecord" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteCounterWorkStationRecord" parameterType="com.changjiang.common.utils.Assist">
         delete from counter_work_station_record
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

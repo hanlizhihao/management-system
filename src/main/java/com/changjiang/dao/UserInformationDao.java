@@ -1,6 +1,6 @@
 package com.changjiang.dao;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.UserInformation;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;

@@ -67,11 +67,11 @@
         ,db_order.sequence as DbOrder21
     </sql>
 
-    <select id="getDbOrderRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getDbOrderRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from db_order
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectDbOrder" parameterType="com.changjiang.common.Assist"  resultMap="result_DbOrder_Map">
+    <select id="selectDbOrder" parameterType="com.changjiang.common.utils.Assist" resultMap="result_DbOrder_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -155,7 +155,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteDbOrder" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteDbOrder" parameterType="com.changjiang.common.utils.Assist">
         delete from db_order
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

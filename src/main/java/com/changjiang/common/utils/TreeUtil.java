@@ -1,6 +1,5 @@
 package com.changjiang.common.utils;
 
-import com.changjiang.common.Assist;
 import com.changjiang.dao.OrganizationDao;
 import com.changjiang.entity.Organization;
 import com.changjiang.viewModel.FunctionNode;

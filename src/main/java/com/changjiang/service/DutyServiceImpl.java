@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.dao.DutyDao;
 import com.changjiang.dao.StoreDao;
 import com.changjiang.entity.Duty;

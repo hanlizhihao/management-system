@@ -99,11 +99,11 @@
         ,user_change.number as UserChange37
     </sql>
 
-    <select id="getUserChangeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getUserChangeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from user_change
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUserChange" parameterType="com.changjiang.common.Assist"  resultMap="result_UserChange_Map">
+    <select id="selectUserChange" parameterType="com.changjiang.common.utils.Assist" resultMap="result_UserChange_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -219,7 +219,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteUserChange" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteUserChange" parameterType="com.changjiang.common.utils.Assist">
         delete from user_change
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

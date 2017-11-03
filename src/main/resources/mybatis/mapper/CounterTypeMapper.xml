@@ -31,11 +31,11 @@
         ,counter_type.state as CounterType3
     </sql>
 
-    <select id="getCounterTypeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getCounterTypeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from counter_type
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCounterType" parameterType="com.changjiang.common.Assist"  resultMap="result_CounterType_Map">
+    <select id="selectCounterType" parameterType="com.changjiang.common.utils.Assist" resultMap="result_CounterType_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -100,7 +100,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteCounterType" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteCounterType" parameterType="com.changjiang.common.utils.Assist">
         delete from counter_type
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

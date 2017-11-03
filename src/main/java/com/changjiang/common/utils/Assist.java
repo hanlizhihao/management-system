@@ -1,4 +1,4 @@
-package com.changjiang.common;
+package com.changjiang.common.utils;
 
 import java.util.ArrayList;
 import java.util.List;

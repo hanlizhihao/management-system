@@ -1,6 +1,6 @@
 package com.changjiang.controller;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.Store;
 import com.changjiang.entity.StoreType;
 import com.changjiang.service.StoreTypeService;

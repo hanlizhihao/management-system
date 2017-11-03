@@ -1,6 +1,6 @@
 package com.changjiang.controller;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.Vip;
 import com.changjiang.entity.VipGoups;
 import com.changjiang.service.VipGoupsService;

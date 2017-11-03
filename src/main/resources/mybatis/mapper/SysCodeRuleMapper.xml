@@ -39,11 +39,11 @@
         ,sys_code_rule.curDate as SysCodeRule7
     </sql>
 
-    <select id="getSysCodeRuleRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getSysCodeRuleRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from sys_code_rule
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectSysCodeRule" parameterType="com.changjiang.common.Assist"  resultMap="result_SysCodeRule_Map">
+    <select id="selectSysCodeRule" parameterType="com.changjiang.common.utils.Assist" resultMap="result_SysCodeRule_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -99,7 +99,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteSysCodeRule" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteSysCodeRule" parameterType="com.changjiang.common.utils.Assist">
         delete from sys_code_rule
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

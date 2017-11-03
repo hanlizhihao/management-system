@@ -35,11 +35,11 @@
         ,official_producte_speciality.degree as OfficialProducteSpeciality5
     </sql>
 
-    <select id="getOfficialProducteSpecialityRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOfficialProducteSpecialityRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from official_producte_speciality
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOfficialProducteSpeciality" parameterType="com.changjiang.common.Assist"  resultMap="result_OfficialProducteSpeciality_Map">
+    <select id="selectOfficialProducteSpeciality" parameterType="com.changjiang.common.utils.Assist" resultMap="result_OfficialProducteSpeciality_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -91,7 +91,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOfficialProducteSpeciality" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOfficialProducteSpeciality" parameterType="com.changjiang.common.utils.Assist">
         delete from official_producte_speciality
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

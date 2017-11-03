@@ -43,11 +43,11 @@
         ,store_producte.store_id as StoreProducte9
     </sql>
 
-    <select id="getStoreProducteRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getStoreProducteRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from store_producte
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectStoreProducte" parameterType="com.changjiang.common.Assist"  resultMap="result_StoreProducte_Map">
+    <select id="selectStoreProducte" parameterType="com.changjiang.common.utils.Assist" resultMap="result_StoreProducte_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -107,7 +107,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteStoreProducte" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteStoreProducte" parameterType="com.changjiang.common.utils.Assist">
         delete from store_producte
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

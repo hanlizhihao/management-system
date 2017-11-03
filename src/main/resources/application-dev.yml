@@ -3,6 +3,7 @@ bootdo:
 logging:
   level:
     com.bootdo: debug
+    org.springframework.web: debug
 app:
  swaggerEnabled: true
 spring:

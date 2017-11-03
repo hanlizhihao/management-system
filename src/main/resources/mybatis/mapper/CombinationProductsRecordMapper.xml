@@ -29,11 +29,11 @@
         ,combination_products_record.store_producte_id as CombinationProductsRecord2
     </sql>
 
-    <select id="getCombinationProductsRecordRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getCombinationProductsRecordRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from combination_products_record
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectCombinationProductsRecord" parameterType="com.changjiang.common.Assist"  resultMap="result_CombinationProductsRecord_Map">
+    <select id="selectCombinationProductsRecord" parameterType="com.changjiang.common.utils.Assist" resultMap="result_CombinationProductsRecord_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -79,7 +79,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteCombinationProductsRecord" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteCombinationProductsRecord" parameterType="com.changjiang.common.utils.Assist">
         delete from combination_products_record
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

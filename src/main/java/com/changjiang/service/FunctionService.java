@@ -1,6 +1,6 @@
 package com.changjiang.service;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.Function;
 import com.changjiang.viewModel.FunctionNestNode;
 import com.changjiang.viewModel.FunctionNode;

@@ -53,11 +53,11 @@
         ,user_information.store_id as UserInformation16
     </sql>
 
-    <select id="getUserInformationRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getUserInformationRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from user_information
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectUserInformation" parameterType="com.changjiang.common.Assist"  resultMap="result_UserInformation_Map">
+    <select id="selectUserInformation" parameterType="com.changjiang.common.utils.Assist" resultMap="result_UserInformation_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -158,7 +158,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteUserInformation" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteUserInformation" parameterType="com.changjiang.common.utils.Assist">
         delete from user_information
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

@@ -49,11 +49,11 @@
         ,official_trade.raw_material as OfficialTrade12
     </sql>
 
-    <select id="getOfficialTradeRowCount" parameterType="com.changjiang.common.Assist" resultType="java.lang.Long">
+    <select id="getOfficialTradeRowCount" parameterType="com.changjiang.common.utils.Assist" resultType="java.lang.Long">
         select count(id) from official_trade
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
-    <select id="selectOfficialTrade" parameterType="com.changjiang.common.Assist"  resultMap="result_OfficialTrade_Map">
+    <select id="selectOfficialTrade" parameterType="com.changjiang.common.utils.Assist" resultMap="result_OfficialTrade_Map">
         select  <if test="distinct !=null">${distinct}</if>
         <choose>
             <when test="resultColumn!=null">${resultColumn}</when>
@@ -119,7 +119,7 @@
         where id = #{id}
     </delete>
 
-    <delete id="deleteOfficialTrade" parameterType="com.changjiang.common.Assist">
+    <delete id="deleteOfficialTrade" parameterType="com.changjiang.common.utils.Assist">
         delete from official_trade
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>

@@ -1,6 +1,6 @@
 package com.changjiang.controller;
 
-import com.changjiang.common.Assist;
+import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.UserEvaluation;
 import com.changjiang.service.UserEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
