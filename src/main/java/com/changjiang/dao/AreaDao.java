@@ -2,6 +2,7 @@ package com.changjiang.dao;
 
 import com.changjiang.common.utils.Assist;
 import com.changjiang.entity.Area;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
