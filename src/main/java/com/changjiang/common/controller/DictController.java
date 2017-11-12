@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -36,14 +35,14 @@ public class DictController extends BaseController {
 	private DictService sysDictService;
 
 	@GetMapping()
-	@RequiresPermissions("common:sysDict:sysDict")
+	  
 	String SysDict() {
 		return "common/sysDict/sysDict";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("common:sysDict:sysDict")
+	  
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
@@ -54,13 +53,12 @@ public class DictController extends BaseController {
 	}
 
 	@GetMapping("/add")
-	@RequiresPermissions("common:sysDict:add")
+
 	String add() {
 		return "common/sysDict/add";
 	}
 
 	@GetMapping("/edit/{id}")
-	@RequiresPermissions("common:sysDict:edit")
 	String edit(@PathVariable("id") Long id, Model model) {
 		DictDO sysDict = sysDictService.get(id);
 		model.addAttribute("sysDict", sysDict);
@@ -72,11 +70,7 @@ public class DictController extends BaseController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("common:sysDict:add")
 	public R save(DictDO sysDict) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		if (sysDictService.save(sysDict) > 0) {
 			return R.ok();
 		}
@@ -88,11 +82,8 @@ public class DictController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("common:sysDict:edit")
 	public R update(DictDO sysDict) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		sysDictService.update(sysDict);
 		return R.ok();
 	}
@@ -102,11 +93,8 @@ public class DictController extends BaseController {
 	 */
 	@PostMapping("/remove")
 	@ResponseBody
-	@RequiresPermissions("common:sysDict:remove")
 	public R remove(Long id) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (sysDictService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -118,11 +106,8 @@ public class DictController extends BaseController {
 	 */
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("common:sysDict:batchRemove")
 	public R remove(@RequestParam("ids[]") Long[] ids) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		sysDictService.batchRemove(ids);
 		return R.ok();
 	}
@@ -135,7 +120,6 @@ public class DictController extends BaseController {
 
 	// 类别已经指定增加
 	@GetMapping("/add/{type}/{description}")
-	@RequiresPermissions("common:sysDict:add")
 	String addD(Model model, @PathVariable("type") String type, @PathVariable("description") String description) {
 		model.addAttribute("type", type);
 		model.addAttribute("description", description);

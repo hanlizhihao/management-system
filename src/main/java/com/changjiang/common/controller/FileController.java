@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +45,6 @@ public class FileController extends BaseController {
 	private BootdoConfig bootdoConfig;
 
 	@GetMapping()
-	@RequiresPermissions("common:sysFile:sysFile")
 	String SysFile(Model model) {
 		Map<String, Object> params = new HashMap<>();
 		return "common/file/file";
@@ -54,7 +52,6 @@ public class FileController extends BaseController {
 
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("common:sysFile:sysFile")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
@@ -82,7 +79,6 @@ public class FileController extends BaseController {
 	 * 信息
 	 */
 	@RequestMapping("/info/{id}")
-	@RequiresPermissions("common:info")
 	public R info(@PathVariable("id") Long id) {
 		FileDO sysFile = sysFileService.get(id);
 		return R.ok().put("sysFile", sysFile);
@@ -93,7 +89,6 @@ public class FileController extends BaseController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("common:save")
 	public R save(FileDO sysFile) {
 		if (sysFileService.save(sysFile) > 0) {
 			return R.ok();
@@ -105,7 +100,6 @@ public class FileController extends BaseController {
 	 * 修改
 	 */
 	@RequestMapping("/update")
-	@RequiresPermissions("common:update")
 	public R update(@RequestBody FileDO sysFile) {
 		sysFileService.update(sysFile);
 
@@ -119,9 +113,7 @@ public class FileController extends BaseController {
 	@ResponseBody
 	// @RequiresPermissions("common:remove")
 	public R remove(Long id, HttpServletRequest request) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		String fileName = bootdoConfig.getUploadPath() + sysFileService.get(id).getUrl().replace("/files/", "");
 		if (sysFileService.remove(id) > 0) {
 			boolean b = FileUtil.deleteFile(fileName);
@@ -139,11 +131,8 @@ public class FileController extends BaseController {
 	 */
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("common:remove")
 	public R remove(@RequestParam("ids[]") Long[] ids) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		sysFileService.batchRemove(ids);
 		return R.ok();
 	}
@@ -151,9 +140,7 @@ public class FileController extends BaseController {
 	@ResponseBody
 	@PostMapping("/upload")
 	R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		String fileName = file.getOriginalFilename();
 		fileName = FileUtil.RenameToUUID(fileName);
 		FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());

@@ -5,14 +5,9 @@ import com.changjiang.common.controller.BaseController;
 import com.changjiang.common.domain.Tree;
 import com.changjiang.common.utils.MD5Utils;
 import com.changjiang.common.utils.R;
-import com.changjiang.common.utils.ShiroUtils;
 import com.changjiang.system.domain.MenuDO;
 import com.changjiang.system.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +32,10 @@ public class LoginController extends BaseController {
 	@Log("请求访问主页")
 	@GetMapping({ "/index" })
 	String index(Model model) {
-		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
+		List<Tree<MenuDO>> menus = menuService.listMenuTree(1L);
 		model.addAttribute("menus", menus);
-		model.addAttribute("name", getUser().getName());
-		log.info(getUser().getName());
+		model.addAttribute("name", "");
+		log.info("");
 		return "index_v1";
 	}
 
@@ -54,19 +49,12 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	R ajaxLogin(String username, String password) {
 		password = MD5Utils.encrypt(username, password);
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		Subject subject = SecurityUtils.getSubject();
-		try {
-			subject.login(token);
-			return R.ok();
-		} catch (AuthenticationException e) {
-			return R.error("用户或密码错误");
-		}
+		return R.ok();
 	}
 
 	@GetMapping("/logout")
 	String logout() {
-		ShiroUtils.logout();
+
 		return "redirect:/login";
 	}
 

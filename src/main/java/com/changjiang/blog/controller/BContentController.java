@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +36,12 @@ public class BContentController extends BaseController {
 	BContentService bContentService;
 
 	@GetMapping()
-	@RequiresPermissions("blog:bContent:bContent")
 	String bContent() {
 		return "blog/bContent/bContent";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("blog:bContent:bContent")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		Query query = new Query(params);
 		List<ContentDO> bContentList = bContentService.list(query);
@@ -54,13 +51,11 @@ public class BContentController extends BaseController {
 	}
 
 	@GetMapping("/add")
-	@RequiresPermissions("blog:bContent:add")
 	String add() {
 		return "blog/bContent/add";
 	}
 
 	@GetMapping("/edit/{cid}")
-	@RequiresPermissions("blog:bContent:edit")
 	String edit(@PathVariable("cid") Long cid, Model model) {
 		ContentDO bContentDO = bContentService.get(cid);
 		model.addAttribute("bContent", bContentDO);
@@ -71,12 +66,9 @@ public class BContentController extends BaseController {
 	 * 保存
 	 */
 	@ResponseBody
-	@RequiresPermissions("blog:bContent:add")
 	@PostMapping("/save")
 	public R save(ContentDO bContent) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (bContent.getAllowComment() == null) {
 			bContent.setAllowComment(0);
 		}
@@ -103,12 +95,9 @@ public class BContentController extends BaseController {
 	/**
 	 * 修改
 	 */
-	@RequiresPermissions("blog:bContent:edit")
 	@RequestMapping("/update")
 	public R update(@RequestBody ContentDO bContent) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		bContent.setGtmCreate(new Date());
 		bContentService.update(bContent);
 		return R.ok();
@@ -117,13 +106,10 @@ public class BContentController extends BaseController {
 	/**
 	 * 删除
 	 */
-	@RequiresPermissions("blog:bContent:remove")
 	@PostMapping("/remove")
 	@ResponseBody
 	public R remove(Long id) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (bContentService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -133,13 +119,10 @@ public class BContentController extends BaseController {
 	/**
 	 * 删除
 	 */
-	@RequiresPermissions("blog:bContent:batchRemove")
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	public R remove(@RequestParam("ids[]") Long[] cids) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		bContentService.batchRemove(cids);
 		return R.ok();
 	}

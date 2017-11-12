@@ -1,6 +1,5 @@
 package com.changjiang.common.exception;
 
-import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -41,8 +40,8 @@ public class BDExceptionHandler {
 		return R.error("没找找到页面");
 	}
 
-	@ExceptionHandler(AuthorizationException.class)
-	public String handleAuthorizationException(AuthorizationException e) {
+	@ExceptionHandler()
+	public String handleAuthorizationException(Exception e) {
 		logger.error(e.getMessage(), e);
 		return "error/403";
 	}

@@ -2,7 +2,6 @@ package com.changjiang.system.controller;
 
 import java.util.List;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +25,12 @@ public class RoleTestController extends BaseController {
 	@Autowired
 	RoleTestService roleTestService;
 
-	@RequiresPermissions("sys:role:role")
+	  
 	@GetMapping()
 	String role() {
 		return prefix + "/role";
 	}
 
-	@RequiresPermissions("sys:role:role")
 	@GetMapping("/list")
 	@ResponseBody()
 	List<RoleDO> list() {
@@ -41,14 +39,12 @@ public class RoleTestController extends BaseController {
 	}
 
 	@Log("添加角色")
-	@RequiresPermissions("sys:role:add")
 	@GetMapping("/add")
 	String add() {
 		return prefix + "/add";
 	}
 
 	@Log("编辑角色")
-	@RequiresPermissions("sys:role:edit")
 	@GetMapping("/edit/{id}")
 	String edit(@PathVariable("id") Long id, Model model) {
 		RoleDO roleDO = roleTestService.get(id);
@@ -57,13 +53,10 @@ public class RoleTestController extends BaseController {
 	}
 
 	@Log("保存角色")
-	@RequiresPermissions("sys:role:add")
 	@PostMapping("/save")
 	@ResponseBody()
 	R save(RoleDO role) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		if (roleTestService.save(role) > 0) {
 			return R.ok();
 		} else {
@@ -72,13 +65,10 @@ public class RoleTestController extends BaseController {
 	}
 
 	@Log("更新角色")
-	@RequiresPermissions("sys:role:edit")
 	@PostMapping("/update")
 	@ResponseBody()
 	R update(RoleDO role) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		if (roleTestService.update(role) > 0) {
 			return R.ok();
 		} else {
@@ -87,13 +77,10 @@ public class RoleTestController extends BaseController {
 	}
 
 	@Log("删除角色")
-	@RequiresPermissions("sys:role:remove")
 	@PostMapping("/remove")
 	@ResponseBody()
 	R save(Long id) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		if (roleTestService.remove(id) > 0) {
 			return R.ok();
 		} else {
@@ -101,14 +88,11 @@ public class RoleTestController extends BaseController {
 		}
 	}
 	
-	@RequiresPermissions("sys:role:batchRemove")
 	@Log("批量删除角色")
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	R batchRemove(@RequestParam("ids[]") Long[] ids) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		int r = roleTestService.batchremove(ids);
 		if (r > 0) {
 			return R.ok();

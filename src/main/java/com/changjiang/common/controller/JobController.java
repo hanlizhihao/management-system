@@ -75,9 +75,7 @@ public class JobController extends BaseController{
 	@ResponseBody
 	@PostMapping("/save")
 	public R save(TaskDO taskScheduleJob) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (taskScheduleJobService.save(taskScheduleJob) > 0) {
 			return R.ok();
 		}
@@ -89,9 +87,6 @@ public class JobController extends BaseController{
 	 */
 	@RequestMapping("/update")
 	public R update(@RequestBody TaskDO taskScheduleJob) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		taskScheduleJobService.update(taskScheduleJob);
 
 		return R.ok();
@@ -103,9 +98,6 @@ public class JobController extends BaseController{
 	@PostMapping("/remove")
 	@ResponseBody
 	public R remove(Long id) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		if (taskScheduleJobService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -118,9 +110,7 @@ public class JobController extends BaseController{
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	public R remove(@RequestParam("ids[]") Long[] ids) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		taskScheduleJobService.batchRemove(ids);
 
 		return R.ok();
@@ -129,9 +119,6 @@ public class JobController extends BaseController{
 	@PostMapping(value = "/changeJobStatus")
 	@ResponseBody
 	public R changeJobStatus(Long id,String cmd ) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		String label = "停止";
 		if (cmd.equals("start")) {
 			label = "启动";

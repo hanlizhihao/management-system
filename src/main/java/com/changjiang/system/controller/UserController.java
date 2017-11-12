@@ -2,8 +2,6 @@ package com.changjiang.system.controller;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +34,6 @@ public class UserController extends BaseController {
 	@Autowired
     RoleTestService roleTestService;
 
-	@RequiresPermissions("sys:user:user")
 	@GetMapping("")
 	String user(Model model) {
 		return prefix + "/user";
@@ -52,8 +49,6 @@ public class UserController extends BaseController {
 		PageUtils pageUtil = new PageUtils(sysUserList, total);
 		return pageUtil;
 	}
-
-	@RequiresPermissions("sys:user:add")
 	@Log("添加用户")
 	@GetMapping("/add")
 	String add(Model model) {
@@ -62,7 +57,6 @@ public class UserController extends BaseController {
 		return prefix + "/add";
 	}
 
-	@RequiresPermissions("sys:user:edit")
 	@Log("编辑用户")
 	@GetMapping("/edit/{id}")
 	String edit(Model model, @PathVariable("id") Long id) {
@@ -73,14 +67,11 @@ public class UserController extends BaseController {
 		return prefix+"/edit";
 	}
 
-	@RequiresPermissions("sys:user:add")
 	@Log("保存用户")
 	@PostMapping("/save")
 	@ResponseBody
 	R save(UserDO user) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		if (userService.save(user) > 0) {
 			return R.ok();
@@ -88,42 +79,33 @@ public class UserController extends BaseController {
 		return R.error();
 	}
 
-	@RequiresPermissions("sys:user:edit")
 	@Log("更新用户")
 	@PostMapping("/update")
 	@ResponseBody
 	R update(UserDO user) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (userService.update(user) > 0) {
 			return R.ok();
 		}
 		return R.error();
 	}
 
-	@RequiresPermissions("sys:user:remove")
 	@Log("删除用户")
 	@PostMapping("/remove")
 	@ResponseBody
 	R remove(Long id) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+
 		if (userService.remove(id) > 0) {
 			return R.ok();
 		}
 		return R.error();
 	}
 
-	@RequiresPermissions("sys:user:batchRemove")
 	@Log("批量删除用户")
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	R batchRemove(@RequestParam("ids[]") Long[] userIds) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		int r = userService.batchremove(userIds);
 		if (r > 0) {
 			return R.ok();
@@ -137,7 +119,6 @@ public class UserController extends BaseController {
 		return !userService.exit(params);// 存在，不通过，false
 	}
 
-	@RequiresPermissions("sys:user:resetPwd")
 	@Log("请求更改用户密码")
 	@GetMapping("/resetPwd/{id}")
 	String resetPwd(@PathVariable("id") Long userId, Model model) {
@@ -152,9 +133,7 @@ public class UserController extends BaseController {
 	@PostMapping("/resetPwd")
 	@ResponseBody
 	R resetPwd(UserDO user) {
-		if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+  
 		user.setPassword(MD5Utils.encrypt(userService.get(user.getUserId()).getUsername(), user.getPassword()));
 		if (userService.resetPwd(user) > 0) {
 			return R.ok();
