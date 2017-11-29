@@ -2,15 +2,15 @@ package com.changjiang;
 
 import lombok.Setter;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,14 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
@@ -52,6 +59,9 @@ public class AppApplication {
 
 	@Setter
 	private Boolean swaggerEnabled;
+
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
@@ -128,5 +138,38 @@ public class AppApplication {
 						.message("服务器端错误")
 						.responseModel(new ModelRef("Errors"))
 						.build());
+	}
+
+	/**
+	 * 以下三个Bean配置视图解析器
+	 *
+	 * @return
+	 */
+	@Bean
+	public ViewResolver viewResolver() {
+		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+		resolver.setTemplateEngine(templateEngine());
+		resolver.setCharacterEncoding("UTF-8");
+		return resolver;
+	}
+
+	@Bean
+	public TemplateEngine templateEngine() {
+		SpringTemplateEngine engine = new SpringTemplateEngine();
+		engine.setEnableSpringELCompiler(true);
+		engine.setTemplateResolver(templateResolver());
+		return engine;
+	}
+
+	@Bean
+	public ITemplateResolver templateResolver() {
+		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		resolver.setApplicationContext(applicationContext);
+		resolver.setPrefix("classpath:/templates/");
+		resolver.setSuffix(".html");
+		resolver.setTemplateMode(TemplateMode.HTML);
+		resolver.setCharacterEncoding("UTF-8");
+		resolver.setCacheable(false);
+		return resolver;
 	}
 }
