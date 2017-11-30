@@ -30,22 +30,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select u.username,rp.function_name from users u,role"
                         + " r,role_power rp where u.role_id=r.id and rp.role_id=r.id and "
                         + "u.username = ?")
-                .groupAuthoritiesByUsername("select g.id,g.group_name,f.function_name from groups"
-                        + "g,group_members gm,function f where gm.username=? and g.id=f.group_id"
-                        + " and g.id=gm.group_id");
+                .groupAuthoritiesByUsername("select groups.id,groups.group_name,function.function_name from groups"
+                        + ",group_members,function where group_members.username = ? and groups.id=function.group_id"
+                        + " and groups.id=group_members.group_id");
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**","/js/**","/images/**","/css/**",
-                "/views/**");
+        web.ignoring().antMatchers("/css/**","/js/**","/img/**","/docs/**", "common/**", "error/**", "system/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //默认开启防止csrf攻击,登录登出不过滤
-        http.formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("username").passwordParameter("password").permitAll()
-                .and().logout().logoutUrl("/logout").permitAll()
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().authorizeRequests().antMatchers("/index", "/blog/**").permitAll().anyRequest().authenticated()
-                .and().sessionManagement().maximumSessions(1).expiredUrl("/login?expired");
+        http
+                .httpBasic()
+                    .realmName("localhost")
+                    .and()
+                .rememberMe()//开启记住我功能
+                    .tokenValiditySeconds(606800)//记住一周
+                    //存储在cookie中的token包含用户名、密码、过期时间和一个私钥--在写入Cookie前都进行了MD5哈希，默认私钥为SpringSecured
+                    // 这里改为management
+                    .key("management")
+                    .and()
+                .formLogin()
+//                    .loginPage("/login")
+//                    .permitAll()
+//                    .usernameParameter("username")
+//                    .passwordParameter("password")
+//                    .successForwardUrl("/index")
+//                    .permitAll()
+//                    .failureUrl("/login?error")
+//                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .permitAll()
+                    .and()
+                .csrf()
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/blog/**")
+                    .authenticated()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                .sessionManagement()
+                    .maximumSessions(1)
+                    .expiredUrl("/login?expired");
     }
 }

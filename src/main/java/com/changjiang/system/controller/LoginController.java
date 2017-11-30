@@ -30,26 +30,24 @@ public class LoginController extends BaseController {
 	}
 
 	@Log("请求访问主页")
-	@GetMapping({ "/index" })
+	@GetMapping("/index")
 	String index(Model model) {
 		List<Tree<MenuDO>> menus = menuService.listMenuTree(1L);
 		model.addAttribute("menus", menus);
 		model.addAttribute("name", "");
-		log.info("");
+		log.info("主页");
 		return "index_v1";
 	}
 
 	@GetMapping("/login")
-	String login() {
+	String login(String error) {
 		return "login";
 	}
 
 	@Log("登录")
 	@PostMapping("/login")
-	@ResponseBody
-	R ajaxLogin(String username, String password) {
-		password = MD5Utils.encrypt(username, password);
-		return R.ok();
+	String ajaxLogin(String username, String password) {
+		return "redirect:/index";
 	}
 
 	@GetMapping("/logout")

@@ -7,6 +7,12 @@ logging:
 app:
  swaggerEnabled: true
 spring:
+  http:
+    multipart:
+      enabled: true
+      max-request-size: 100MB
+      location: export/tempUploadDerictory
+      max-file-size: 50MB
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
