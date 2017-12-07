@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -39,21 +40,9 @@ public class LoginController extends BaseController {
 		return "index_v1";
 	}
 
-	@GetMapping("/login")
+	@RequestMapping("/login")
 	String login(String error) {
 		return "login";
-	}
-
-	@Log("登录")
-	@PostMapping("/login")
-	String ajaxLogin(String username, String password) {
-		return "redirect:/index";
-	}
-
-	@GetMapping("/logout")
-	String logout() {
-
-		return "redirect:/login";
 	}
 
 	@GetMapping("/main")

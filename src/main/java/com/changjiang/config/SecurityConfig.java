@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -16,7 +15,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  */
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DruidDataSource dataSource;
@@ -42,8 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //默认开启防止csrf攻击,登录登出不过滤
         http
-                .httpBasic()
-                    .realmName("localhost")
+                .formLogin()
+//                    .loginPage("/login")
+//                    .permitAll()
+//                    .successForwardUrl("/index")
+//                    .failureUrl("/login?error")
                     .and()
                 .rememberMe()//开启记住我功能
                     .tokenValiditySeconds(606800)//记住一周
@@ -51,30 +52,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     // 这里改为management
                     .key("management")
                     .and()
-                .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
-//                    .usernameParameter("username")
-//                    .passwordParameter("password")
-//                    .successForwardUrl("/index")
-//                    .permitAll()
-//                    .failureUrl("/login?error")
-//                    .permitAll()
+                .authorizeRequests()
+                    .antMatchers("/blog", "/blog/**", "/index")
+                    .fullyAuthenticated()
+                    .anyRequest()
+                    .authenticated()
                     .and()
-                .logout()
-                    .logoutUrl("/logout")
-                    .permitAll()
+//                .requiresChannel()
+//                    .antMatchers("/login")
+//                    .requiresSecure()
+//                    .and()
+                .httpBasic()
+                    .realmName("localhost")
                     .and()
                 .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and()
-                .authorizeRequests()
-                    .antMatchers("/blog/**")
-                    .authenticated()
-                    .anyRequest()
-                    .authenticated()
-                    .and()
                 .sessionManagement()
+                    .invalidSessionUrl("/login")
                     .maximumSessions(1)
                     .expiredUrl("/login?expired");
     }

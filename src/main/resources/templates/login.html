@@ -51,17 +51,15 @@
 				</div>
 			</div>
 			<div class="col-sm-5">
-				<form id="signupForm" th:action='@{/login}' method="post">
+				<form name="f" action="/login" method="post">
 					<h3 class="text-center">用户登录</h3>
 					<p class="m-t-md text-center">欢迎登录bootdo后台管理系统</p>
-					<input type="text" name="username" class="form-control uname"
-						value="test" title="用户名" />
-					<input type="password" name="password"
-						class="form-control pword m-b" value="111111"  title="密码"/>
+					<input type="text" name="username" class="form-control uname" value="" title="用户名" />
+					<input type="password" name="password" class="form-control pword m-b" value=""  title="密码"/>
 					<input id="remember_me" name="remember-me" type="checkbox"/>
 					<label for="remember_me" style="display: inline">Remember Me</label>
 					<!--<button class="btn btn-login btn-block">登录</button>-->
-					<input type="submit" value="登录" class="btn btn-login btn-block"/>
+					<input type="submit" name="submit" value="登录" class="btn btn-login btn-block"/>
 				</form>
 			</div>
 		</div>
