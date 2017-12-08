@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -15,11 +16,14 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  */
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DruidDataSource dataSource;
     @Override
-    //对于权限，每个权限的名字是function_name，基于功能点去验证权限
+    /**
+     * 对于权限，每个权限的名字是function_name，基于功能点去验证权限
+     */
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //暂时使用基于内存的AuthenticationProvider
         auth.inMemoryAuthentication().withUser("username").password("password").
@@ -41,13 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //默认开启防止csrf攻击,登录登出不过滤
         http
                 .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
+                    .loginPage("/login")
+                    .permitAll()
 //                    .successForwardUrl("/index")
 //                    .failureUrl("/login?error")
                     .and()
+                .logout()
+                    .clearAuthentication(true)
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .deleteCookies("SESSION")
+                    .and()
                 .rememberMe()//开启记住我功能
-                    .tokenValiditySeconds(606800)//记住一周
+                    //记住一周
+                    .tokenValiditySeconds(606800)
                     //存储在cookie中的token包含用户名、密码、过期时间和一个私钥--在写入Cookie前都进行了MD5哈希，默认私钥为SpringSecured
                     // 这里改为management
                     .key("management")
@@ -66,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .realmName("localhost")
                     .and()
                 .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                //强制将token放在cookie中，方便JS直接从cookie中读取csrf token,http参数_csrf将放在X-XSRF-TOKEN
                     .and()
                 .sessionManagement()
                     .invalidSessionUrl("/login")

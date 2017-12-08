@@ -50,5 +50,4 @@ public class LoginController extends BaseController {
 		return "main";
 	}
 
-
 }
