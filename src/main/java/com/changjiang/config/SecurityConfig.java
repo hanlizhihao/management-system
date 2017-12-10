@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //默认开启防止csrf攻击,登录登出不过滤
         http
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
+//                    .loginPage("/login")
+//                    .permitAll()
 //                    .successForwardUrl("/index")
 //                    .failureUrl("/login?error")
                     .and()
